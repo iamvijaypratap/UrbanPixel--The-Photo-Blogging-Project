@@ -15,7 +15,7 @@ with open('config.json', 'r') as c:
     params = json.load(c)["params"]
 
 app=Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/urbanpixel'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/dbname'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 280
 db = SQLAlchemy(app)
