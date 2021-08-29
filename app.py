@@ -5,7 +5,7 @@ from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import null,desc
 import pymysql
-from sqlalchemy.sql.expression import desc
+from sqlalchemy.sql.expression import desc, true
 pymysql.install_as_MySQLdb()
 from flask import session
 import json
@@ -15,12 +15,14 @@ from flask_mail import *
 from flask_mail import Message
 from flask_mail import Mail
 import hashlib
+from flask_ngrok import run_with_ngrok
 
 
 with open('config.json', 'r') as c:
     params = json.load(c)["params"]
 
 app=Flask(__name__)
+#run_with_ngrok(app)
 mail = Mail(app)  
 app.config["MAIL_SERVER"]='smtp.gmail.com'  
 app.config["MAIL_PORT"] = 465      
@@ -101,6 +103,7 @@ def signup():
 @app.route("/", methods=['GET', 'POST'])
 def login():
     if g.user: # agar user session me h to 
+        print(g.user)
         users =  Userinfo.query.filter(Userinfo.username.like(g.user)).all()
         allinfo = Userinfo.query.all()    
         img = Img.query.all()        
@@ -110,8 +113,6 @@ def login():
         username = request.form.get('user')
         userpass = request.form.get('passwd')
         hashed_userpass = hashlib.md5(userpass.encode())
-        print(f"from form data {username} {hashed_userpass.hexdigest()}")
-        #if (username ==params['admin_user'] and userpass ==params['admin_password']):
         #unam =  db.session.execute("SELECT username FROM userinfo WHERE username=:username{'username':username}").fetchone()
         #passw = db.session.execute("SELECT password FROM userinfo WHERE username=username{'username':username}").fetchone()  
         #print(passw[0])
@@ -131,7 +132,11 @@ def login():
 
 
     return render_template('index.html')
-
+@app.before_request
+def before_request():
+    g.user=None
+    if "user" in session:
+        g.user=session["user"]
 
 @app.route('/logout')
 def logout():
@@ -141,12 +146,10 @@ def logout():
 @app.route('/reset_password', methods=['GET', 'POST'])
 def reset_password():
     if request.method=="POST":
-        user = request.form.get("user")
-        result = Userinfo.query.filter_by(username=user).first()
+        useremail = request.form.get("user")
+        result = Userinfo.query.filter_by(email=useremail).first()
         if result is not None:
-            session["user"]=user
-            #print(result.email)
-            #print(user)
+            session["mail"]=useremail
             msg = Message('OTP',sender = 'nreply760@gmail.com', recipients = [result.email])  
             msg.body = f" A request has been recieved to change the password for your UrbanPixel Account your secret otp is {str(otp)}" 
             mail.send(msg) 
@@ -156,9 +159,14 @@ def reset_password():
             flash("UserName Does Not Exists","danger")
 
     return render_template("reset.html")
+@app.before_request
+def before_request():
+    g.mail=None
+    if "mail" in session:
+        g.mail=session["mail"]
 @app.route('/otp_validation', methods=['GET', 'POST'])
 def otp_validation():
-   if g.user:
+   if g.mail:
         print(g.user)
         if request.method=="POST":
             user_otp = request.form.get("otp1")
@@ -166,49 +174,44 @@ def otp_validation():
                 return render_template("pw.html")
             else:
                 flash("OTP doesn't Match","danger")
-                return render_template("otp_valid.html")
+        return render_template("otp_valid.html")
 @app.route('/password', methods=['GET', 'POST'])
 def password():
-   if g.user:
+   if g.mail:
        if request.method=="POST":
            ps = hashlib.md5(request.form.get("ps").encode())
            ps1  = hashlib.md5(request.form.get("ps1").encode())
            if ps.hexdigest()==ps1.hexdigest():
-                Dataupdate =  Userinfo.query.filter_by(username=g.user).first()
-                print(Dataupdate)
+                Dataupdate =  Userinfo.query.filter_by(email=g.mail).first()
                 Dataupdate.password=ps1.hexdigest()
                 db.session.add(Dataupdate)
                 db.session.commit()
                 return render_template("index.html")
            else:
                 flash("Password Doesnt Match","danger")
-                return render_template("pw.html")
+       return render_template("pw.html")
+     
           
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    print(g.user)
     if g.user:
     #g.user me current user sotred h 
        results = Userinfo.query.filter(Userinfo.username.like(g.user)).all()
        user =  Userinfo.query.filter_by(username=g.user).first()
        contents = Img.query.filter(Img.user.like(user.username)).all()
-       print(contents)
-    return render_template("profile.html",allinfo=results,contents=contents)
+       postlen = len(contents)
+       return render_template("profile.html",allinfo=results,contents=contents,postlen=postlen)
+    else:
+        return redirect(url_for("login"))
 
-@app.before_request
-def before_request():
-    g.user=None
-    if "user" in session:
-        g.user=session["user"]
+
 @app.route("/uploader" , methods=['GET', 'POST'])
 def uploader():
     if g.user:
         if request.method=='POST':
             pic = request.files.get("pic")
             caption = request.form.get("caption")
-            if not pic:
-                flash("Select a Picture","danger")
             filename = secure_filename(pic.filename)
             mimetype=pic.mimetype
             user =  Userinfo.query.filter_by(username=g.user).first()
@@ -216,11 +219,12 @@ def uploader():
             db.session.add(img)
             db.session.commit()
         flash("uploaded successfully","success")
-    return redirect("/")
+        return redirect("/")
+    else:
+        return redirect(url_for("login"))
 @app.route('/update', methods=['GET', 'POST'])
 def ProfileUpdate():
    if g.user:
-       print(g.user)
        if request.method=="POST":
             fname = request.form.get("fname")
             lname = request.form.get("lname")
@@ -231,7 +235,6 @@ def ProfileUpdate():
                 bio = request.form.get("bio")
                 proffession = request.form.get("prfsn")
                 Dataupdate =  Userinfo.query.filter_by(username=g.user).first()
-                print(Dataupdate)
                 Dataupdate.firstname=fname
                 Dataupdate.lastname=lname
                 Dataupdate.bio = bio
@@ -240,11 +243,13 @@ def ProfileUpdate():
                 db.session.commit()
                 allinfo=  Userinfo.query.filter(Userinfo.username.like(g.user)).all()
                 flash("Profile Details Updated","success")
-                return render_template("profile.html",allinfo=allinfo)
+                return redirect(url_for("profile"))
             else:
                 flash("Password Did Not Match Or Incorrect Password","danger")
        allinfo=  Userinfo.query.filter(Userinfo.username.like(g.user)).all()
        return render_template("profileupdate.html",allinfo=allinfo)
+   else:
+        return redirect(url_for("login"))
 @app.route('/userprofile/<int:sno>')
 def userprofile(sno):
     if g.user:
@@ -254,16 +259,30 @@ def userprofile(sno):
 @app.route('/user_profile/<string:user>')
 def user_profile(user):
     if g.user:
-        users = Userinfo.query.filter(Userinfo.username.like(g.user)).all()
-        up = Userinfo.query.filter(Userinfo.username.like(user)).all()
-        contents = Img.query.filter(Img.user.like(user)).all()
-        return render_template("uf.html",contents=contents,up=up,users=users)
+        current_user= Userinfo.query.filter_by(username=user).first()
+        if current_user.username == g.user:
+            return redirect(url_for("profile"))
+        else:
+            users = Userinfo.query.filter(Userinfo.username.like(g.user)).all()
+            up = Userinfo.query.filter(Userinfo.username.like(user)).all()
+            contents = Img.query.filter(Img.user.like(user)).all()
+            postlen = len(contents)
+            return render_template("uf.html",contents=contents,up=up,users=users,postlen=postlen)
+    else:
+        return redirect(url_for("login"))
     
 
-@app.route('/active', methods=['GET', 'POST'])
-def active_user():
-        print(session)
-        return render_template("uf.html",session=session)
+@app.route('/del_post/<int:sno>')
+def del_post(sno):
+    if g.user:
+        posts = Img.query.filter_by(sno=sno).first()
+        if posts:
+            db.session.delete(posts)
+            db.session.commit()
+            return redirect(url_for("profile"))
+    else:
+        return redirect(url_for("login"))
+      
 if __name__ == '__main__':
     #DEBUG is SET to TRUE. CHANGE FOR PROD
      app.run(port=5000,debug=True)
