@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
+{% for user in up %}
+    
+
+    <title>{{user.username}} | ＵｒｂａｎＰｉｘ</title>
+    {% endfor %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css"
+        integrity="sha512-kb1CHTNhoLzinkElTgWn246D6pX22xj8jFNKsDmVwIQo+px7n1yjJUZraVuR/ou6Kmgea4vZXZeUDbqKtXkEMg=="
+        crossorigin="anonymous" />
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"
+        integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA=="
+        crossorigin="anonymous"></script>
+    <style>
+.img-fluid{
+    padding: .1rem;
+}
+    </style>
+</head>
+
+<body id="page">
+    <div class="container-fluid" id="page" style="overflow-x: hidden;">
+        <div class="row">
+
+            <div class="col-lg-12 col-md-8 col-sm-6">
+                <div class="navbar">
+                    <a class="navbar-brand" href="#page-top">UrbanPix.Org </a>
+                    <ul id="nav-items">
+                        <li><a href="/"><i class="fa fa-home"></i></a></li>
+                        <li><a href="/profile"><i class="fa fa-user-circle"></i></a></li>
+                        
+                        <li><a href="/update"><i class="fa fa-edit"></i></a></li>
+                        <li><a href=""><i class="fa fa-envelope-open"></i></a></li>
+                        <li><a href="/logout"><i class="fa fa-sign-out"></i></a></li>
+                    </ul>
+                    <!--{% for user in users  %}
+                    <p class="bg-success" id="lu">Logged In As {{user.username}}</p> 
+                    {% endfor %}-->
+                </div>
+            </div>
+
+
+            <div class="container">
+                <div class="row">
+                    {% for user in up  %}
+                        
+                
+                    <div
+                        class="col-lg-12 col-md-8 col-sm-6 align-items-center justify-content-center d-flex text-center">
+                        <div class="col-lg-6 col-sm-2  align-items-center justify-content-start d-flex text-center">
+                            <a href="{{url_for('static', filename='userdef.png')}}" target="_blank"><img class="img-fluid" id="user-stats" src="{{url_for('static', filename='userdef.png')}}" alt="" srcset=""></a>
+                        </div>
+                        <div class="col-lg-6 col-sm-2  align-items-center justify-content-center d-flex text-center">
+                            <h1 class="user">{{user.username}}</h1>
+                        </div>
+                    </div>
+                  
+
+                    <div class="col-lg-12 col-md-8 col-sm-6 d-flex">
+                        <div class="col-lg-6 col-sm-3  align-items-center justify-content-flex-start d-flex" id="asd">
+                            <h2 class="user">{{user.firstname}} {{user.lastname}}</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-3  align-items-center justify-content-start d-block">
+                        <h2 class="user">
+                            {{user.proffession}}
+                        </h2>
+                        <h2 class="user">{{user.bio}}</h2>
+                        <h2 class="user">{{user.email}}</h2>
+                        <h2 class="user">#creator</h2>
+                        <h3 class="user">#Optimistic</h3>
+                        <h4 class="user">#stubborn</h4>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="container">
+                <div class="row">
+                    <div
+                        class="col-lg-12 col-md-8 col-sm-6 d-flex justify-content-center align-items-center text-center">
+                        <div class="col-4 col-sm-2 d-flex justify-content-center align-items-center text-center"
+                            id="asd">
+                            <ul id="stats">
+                                <li><a href="http://">{{postlen}}</a></li>
+                                <li><a href="http://">Posts</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 col-sm-2 d-flex justify-content-center align-items-center text-center"
+                            id="asd">
+                            <ul id="stats">
+                                <li><a href="http://">000</a></li>
+                                <li><a href="http://">Followers</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 col-sm-2 d-flex justify-content-center align-items-center text-center"
+                            id="asd">
+                            <ul id="stats">
+                                <li><a href="http://">000</a></li>
+                                <li><a href="http://">Following</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<div class="container">
+    <div class="row no-gutters">
+        {% for content in contents  %}
+        <div class="container">
+       <div class="card text-center mb-5 bg-light">
+        <div id="lu1" class="card-header d-flex bg-secondary">
+          Posts
+        </div>
+        <div class="card-body d-flex ">
+          <h5 id="lu1" class="card-title">{{content.user}}</h5>
+         
+        </div>
+        <div class="card-body">
+            <p id="lu1" class="card-text">{{content.caption}}</p>
+        </div>
+       </div>
+    </div>
+        
+        {% endfor %}
+    </div>
+
+    </div>
+        </div>
+        
+    </div>
+    <footer id = "ftr" class=" py-5">
+        <div class="container">
+            <div class="small text-center ">Copyright © 2021 - Coding-Curiosity</div>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>
