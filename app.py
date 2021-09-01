@@ -186,6 +186,9 @@ def password():
                 Dataupdate.password=ps1.hexdigest()
                 db.session.add(Dataupdate)
                 db.session.commit()
+                msg = Message('[UrbanPixel] Your Password was reset',sender = 'nreply760@gmail.com', recipients = [Dataupdate.email])  
+                msg.body = f"Hello {Dataupdate.username}\n We wanted to let you know that your account password was reset \n Please do not reply to this email with your password we will never ask for your password, and we strongly discourage you from sharing it with any one \n (Tean urbanpixel)" 
+                mail.send(msg) 
                 return render_template("index.html")
            else:
                 flash("Password Doesnt Match","danger")
