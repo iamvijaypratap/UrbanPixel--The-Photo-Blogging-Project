@@ -1,0 +1,268 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Satisfy&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@633&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cookie&family=Josefin+Sans:wght@633&display=swap');
+.container-fluid {
+  margin-right: 0;
+  margin-left: 0;
+  padding-right: 0;
+  padding-left: 0;
+  box-sizing: border-box;
+}
+.clr{
+  background-color:rgb(0 0 0 / 36%);
+}
+#icon li a{
+  color: white;
+  font-size: medium;
+}
+
+#two {
+  margin-top: 0.5rem;
+}
+
+.navbar {
+  background:rgba(15, 15, 15, 0.6);
+
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+#nav-items {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  position: relative;
+  right: 3.3rem;
+}
+#post {
+  list-style: none;
+ 
+ 
+}
+
+#post li a{
+  color:#050505;
+  padding: 1rem;
+}
+#lu{
+  font-family: cursive;
+}
+#lu1{
+  font-family: cursive;
+  color: black;
+  font-weight:700
+  display:flex;
+  
+  font-size:1rem;
+}
+#brd {
+  border-radius: 9px;
+}
+
+#nav-items li a {
+  color: white;
+  font-size: 2rem;
+  padding: 1rem;
+}
+#nav-items li a:hover {
+  background:rgba(77, 72, 72, 0.6);
+ 
+}
+
+#react {
+  list-style: none;
+  display: flex;
+  margin: auto;
+}
+
+#react li a {
+  color: #ff3300;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+#react li a:hover {
+  color: black;
+}
+#profiles {
+  list-style: none;
+  display: flex;
+  margin: auto;
+}
+#profiles li a {
+  padding: 0.9rem;
+}
+#content {
+  margin-top: 3rem;
+  border-radius: 9px;
+}
+
+#section {
+  margin-top: 6rem;
+}
+#ftr{
+  color: white
+}
+@import url('https://fonts.googleapis.com/css2?family=Cookie&family=Kaushan+Script&family=Source+Code+Pro:wght@600&display=swap');
+.user {
+  font-size: 1.5rem;
+  font-family: satisfy;
+  color:white;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+}
+
+.navbar-brand {
+  font-family: 'Cookie', cursive;
+  color: white;
+  font-size: 2rem;
+}
+
+#page-top {
+  background-color:#7e57c2;
+  height: auto;
+}
+#page {
+  background-image:url(bg4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment:fixed;
+  
+}
+#page2 {
+  background-image:url(bg7.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment:fixed;
+  
+}
+#page3 {
+  background-image:url(bg3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment:fixed;
+  
+}
+#page1{
+  background-image:url(bodybg1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment:fixed;
+  
+}
+#d {
+  margin-top: 67px;
+}
+
+#user-id {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 2px solid rgba(253, 29, 29, 1);
+}
+#status {
+  margin-top: 7rem;
+}
+.footer {
+  background:#673ab7;
+  color: white;
+  font-weight: bolder;
+  text-align: center;
+  font-size: 0.7rem;
+  font-family: "Josefin Sans", sans-serif;
+}
+#user-stats {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 2px solid rgba(253, 29, 29, 1);
+  margin-top: 0.5rem;
+  margin-right: 4rem;
+}
+#stats {
+  display: inline-block;
+  justify-content: space-around;
+  list-style: none;
+  margin: auto;
+}
+#stats li a {
+  color: white;
+  font-weight: bold;
+  padding: 0.1rem;
+  font-family: monospace;
+}
+#icon {
+  display: flex;
+  list-style: none;
+  margin: auto;
+}
+#icon li a {
+  color: black;
+  font-size: 2rem;
+}
+#btn {
+  margin-right: 2rem;
+}
+#asd {
+  padding-left: 0rem;
+  padding-right: 1.4rem;
+}
+#ftr{
+  color: white;
+}
+
+
+
+@media screen and (max-width: 360px) {
+  #asd {
+    padding-left: 0rem;
+    padding-right: 2.8rem;
+  }
+  .navbar {
+    height: 3.1rem;
+  }
+  .navbar-brand {
+    font-size: 1rem;
+  }
+  #nav-items li a {
+    font-size: 1rem;
+    position: relative;
+    left: 2rem;
+  }
+  #profiles {
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
+  #profiles li a {
+    position: relative;
+    right: 4rem;
+    padding: 1.8rem;
+  }
+  #nav-items {
+    right: 2.1rem;
+    bottom: 1.95rem;
+  }
+  #status {
+    margin-top: 5rem;
+  }
+  #content {
+    margin-top: 2rem;
+  }
+  #section {
+    margin-top: 3rem;
+  }
+  .user {
+    font-size: 1rem;
+  }
+  #user-id {
+    width: 3rem;
+    height: 3rem;
+  }
+  #action{
+    max-width: 73px;
+    position: absolute;
+    left: 270px;
+    height: 49px;
+  }
+}
