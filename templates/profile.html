@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no"
+    />
+    {% for info in allinfo %}
+    <title>{{info.username}} | ＵｒｂａｎＰｉｘ</title>
+    {% endfor %}
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='stylesheet.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css"
+      integrity="sha512-kb1CHTNhoLzinkElTgWn246D6pX22xj8jFNKsDmVwIQo+px7n1yjJUZraVuR/ou6Kmgea4vZXZeUDbqKtXkEMg=="
+      crossorigin="anonymous"
+    />
+    <link rel="icon" type="image/x-icon" href="{{url_for('static' ,filename='favicon.png') }}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"
+      integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA=="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .img-fluid {
+        padding: 0.1rem;
+      }
+    </style>
+  </head>
+
+  <body id="page">
+    <div class="container-fluid" id="page" style="overflow-x: hidden">
+      <div class="row">
+        <div class="col-lg-12 col-md-8 col-sm-6">
+          <div class="navbar">
+            <a class="navbar-brand" href="/">UrbanPix.org </a>
+            <ul id="nav-items">
+              <li>
+                <a href="/"><i class="fa fa-home"></i></a>
+              </li>
+              <li>
+                <a href="/profile"><i class="fa fa-user-circle"></i></a>
+              </li>
+
+              <li>
+                <a href="/update"><i class="fa fa-edit"></i></a>
+              </li>
+              <li>
+                <a href=""><i class="fa fa-envelope-open"></i></a>
+              </li>
+              <li>
+                <a href="/logout"><i class="fa fa-sign-out"></i></a>
+              </li>
+            </ul>
+            <!--{% for info in allinfo  %}
+                    <p class="bg-success" id="lu">Logged In As {{info.username}}</p> 
+                    {% endfor %} -->
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            {%with messages = get_flashed_messages(with_categories=true)%} {%if
+            messages %} {% for category,message in messages %}
+
+            <div class="container">
+              <hr />
+              <div
+                class="alert alert-{{category}} alert-dismissible fade show"
+                role="alert"
+              >
+                <strong>{{message}}</strong>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            {% endfor %} {%endif%} {%endwith%} {% for info in allinfo %}
+
+            <div
+              class="
+                col-lg-12 col-md-8 col-sm-6
+                align-items-center
+                justify-content-center
+                d-flex
+                text-center
+              "
+            >
+              <div
+                class="
+                  col-lg-6 col-sm-2
+                  align-items-center
+                  justify-content-start
+                  d-flex
+                  text-center
+                "
+              >
+                <a
+                  href="{{url_for('static', filename='userdef.png')}}"
+                  target="_blank"
+                  ><img
+                    class="img-fluid"
+                    id="user-stats"
+                    src="{{url_for('static', filename='userdef.png')}}"
+                    alt=""
+                    srcset=""
+                /></a>
+              </div>
+              <div
+                class="
+                  col-lg-6 col-sm-3
+                  align-items-center
+                  justify-content-center
+                  d-flex
+                  text-center
+                "
+              >
+                <h1 class="user">{{info.username}}</h1>
+                <ul style="padding: 0px; list-style: none; margin: auto" id="">
+                  <li>
+                    <a style="color: white" href="/update"
+                      ><i class="fa fa-cogs"></i
+                    ></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-8 col-sm-6 d-flex">
+              <div
+                class="
+                  col-lg-6 col-sm-3
+                  align-items-center
+                  justify-content-flex-start
+                  d-flex
+                "
+                id="asd"
+              >
+                <h2 class="user">{{info.firstname}} {{info.lastname}}</h2>
+              </div>
+            </div>
+            <div
+              class="
+                col-lg-4 col-sm-3
+                align-items-center
+                justify-content-start
+                d-block
+              "
+            >
+              <h2 class="user">{{info.proffession}}</h2>
+              <h2 class="user">{{info.bio}}</h2>
+              <h2 class="user">{{info.email}}</h2>
+              <h2 class="user">#creator</h2>
+              <h3 class="user">#Optimistic</h3>
+              <h4 class="user">#stubborn</h4>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="container">
+          <div class="row">
+            <div
+              class="
+                col-lg-12 col-md-8 col-sm-6
+                d-flex
+                justify-content-center
+                align-items-center
+                text-center
+              "
+            >
+              <div
+                class="
+                  col-4 col-sm-2
+                  d-flex
+                  justify-content-center
+                  align-items-center
+                  text-center
+                "
+                id="asd"
+              >
+                <ul id="stats">
+                  <li><a href="http:#">{{postlen}}</a></li>
+                  <li><a href="http:#">Posts</a></li>
+                </ul>
+              </div>
+              <div
+                class="
+                  col-4 col-sm-2
+                  d-flex
+                  justify-content-center
+                  align-items-center
+                  text-center
+                "
+                id="asd"
+              >
+                <ul id="stats">
+                  <li><a href="http://">000</a></li>
+                  <li><a href="http://">Followers</a></li>
+                </ul>
+              </div>
+              <div
+                class="
+                  col-4 col-sm-2
+                  d-flex
+                  justify-content-center
+                  align-items-center
+                  text-center
+                "
+                id="asd"
+              >
+                <ul id="stats">
+                  <li><a href="http://">000</a></li>
+                  <li><a href="http://">Following</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          {% for content in contents %}
+          <div class="row no-gutters">
+           
+            <div class="container mt-4">
+              <div class="row">
+                <div class="col-lg-11 col-sm-4">
+                  <div  style="padding: 0px;" class=" jumbotron card text-center mb-5 bg-light">
+                    <div
+                    style="color: black;" class="col-lg-12 col-sm-6 card-header d-flex bg-light"
+                      
+                    >
+                      Posts
+                    </div>
+
+                    <div style="margin: 0px;padding: 8px;"  class="card-body d-flex jumbotron">
+                      <h5 class="card-title">{{content.user}}</h5>
+                    </div>
+                    <div  style="padding: 10px;"  class="card-body jumbotron">
+                      <p  style="font-size: 0.9rem;" class="card-text lead">{{content.caption}}</p>
+                    </div>
+                    <div class="card_footer d-flex justify-content-center">
+                      <p class="lead" style="font-size: 0.85rem;">{{content.time}}</p>
+                    </div>
+                    <div class="col-lg-12 col-md-8 col-sm-6  ">
+                      <div class="input-group mb-3">
+                          <input type="text" class="form-control" placeholder="Add a Comment" aria-label="comment" aria-describedby="button-addon2">
+                          <button class="btn btn-secondary" type="button" id="button-addon2">Comment</button>
+                        </div>
+                  </div>
+                  </div>
+                </div>
+                <div
+                  style="max-height: 54px; max-width: 73px"
+                  class="col-lg-1 col-sm-2 d-block bg-light"
+                  id="action"
+                >
+                  <ul style="padding: 0px" id="post">
+                    <li>
+                      <a href="/update_post/{{content.sno}}"
+                      ><i class="fa fa-pencil-square"></i
+                    ></a>
+                      <a href="/del_post/{{content.sno}}"
+                        ><i class="fa fa-trash-o"></i
+                      ></a>
+                     
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <footer id="ftr" class="py-5">
+      <div class="container">
+        <div class="small text-center">Copyright © 2021 - Coding-Curiosity</div>
+      </div>
+    </footer>
+  </body>
+</html>

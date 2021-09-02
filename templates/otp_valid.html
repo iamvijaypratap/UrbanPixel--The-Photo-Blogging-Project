@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    {%with messages = get_flashed_messages(with_categories=true)%}
+    {%if messages %}
+    {% for category,message in messages  %}
+        
+    
+    <div class="container">     
+         <hr>
+        <div class="alert alert-{{category}} text-center" role="alert">
+            {{message}}
+          </div>
+    
+          {% endfor %}
+          {%endif%}
+          {%endwith%}
+          
+    <form action="/otp_validation" method="POST">
+    <input type="text" name="otp1">
+    <button class="btn btn-success" type="submit">Validate otp</button>
+    </form>
+    </div>
+</body>
+</html>

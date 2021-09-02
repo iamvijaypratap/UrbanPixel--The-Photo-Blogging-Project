@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
+
+    <title>Home | ＵｒｂａｎＰｉｘ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css"
+        integrity="sha512-kb1CHTNhoLzinkElTgWn246D6pX22xj8jFNKsDmVwIQo+px7n1yjJUZraVuR/ou6Kmgea4vZXZeUDbqKtXkEMg=="
+        crossorigin="anonymous" />
+    <link rel="icon" type="image/x-icon" href="{{url_for('static' ,filename='favicon.png') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"
+        integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA=="
+        crossorigin="anonymous"></script>
+    <style>
+
+    </style>
+</head>
+
+<body id="page3">
+    <div class="container-fluid" id="page3">
+        <div class="row">
+            <div class="col-lg-12 col-sm-6">
+                <div class="navbar fixed-top ">
+                    <a class="navbar-brand" href="#page-top">UrbanPix.Org </a>
+                    <ul id="nav-items">
+                        <li><a href="#" data-toggle="tooltip" title="Home"><i class="fa fa-home"></i></a></li>
+                        <li><a href="/profile" data-toggle="tooltip" title="User Profile"><i class="fa fa-user-circle"></i></a></li>
+                        <li><a href="/update" data-toggle="tooltip" title="Edit Your Profile"><i class="fa fa-edit"></i></a></li>
+                        <li><a href=""  data-toggle="tooltip" title="Messaging"><i class="fa fa-envelope-open"></i></a></li>
+                        <li><a href="/logout"  data-toggle="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a></li>
+                        
+                    </ul>
+                    <!--{% for user  in users  %}
+                    <p class="bg-success" id="lu"> Logged In As {{user.username}}</p> 
+                    {% endfor %} -->
+                    
+                </div>
+            </div>
+        </div>
+
+          
+          
+            
+        
+
+
+
+
+
+          
+        
+            <div class="container  text-white " id="status">
+                <div class="row">
+<div class="col-lg-10 col-md-8 col-sm-4">
+                <div class="card-header clr" id="brd">Upload a Post</div>
+              <div class="card-body clr" id="brd">
+                  <form action="/uploader" method="POST" enctype="multipart/form-data">
+                <div class="input-group my-3 mb-3">
+                    
+                        <input type="file" name = "pic"class="form-control-file border" >
+                     
+                
+                  </div>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Caption</span>
+                    </div>
+                    <textarea class="form-control" name="caption" aria-label="With textarea"></textarea>
+                  </div>
+
+                  <button class="btn btn-success btn-lg my-3" type="submit">Post</button>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-2 col-sm-2">
+<p>
+                <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Our Growing Community
+                  </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card bg-light text-center">
+                        <div class="card-header d-flex bg-light ">
+                           
+                          </div>
+                          <div style="overflow: auto; max-height: 240px;" class="card-body  d-block  justify-content-start">
+                              {% for info in allinfo %}
+                                 <ul style="list-style: none; padding: 0px;">
+                              <li>
+                                    <a style="color: black;" href="/user_profile/{{info.username}}">{{info.username}}</a> 
+                                    </li> 
+                                </ul>
+                              {% endfor %}
+                          </div>
+                    </div>
+                </div>
+
+
+               
+            </div>
+           
+            </div>
+                </div>
+        
+       
+        {%with messages = get_flashed_messages(with_categories=true)%}
+        {%if messages %}
+        {% for category,message in messages  %}
+            
+        
+
+
+
+        <div class="container">     
+            <hr>
+           <div class="alert alert-{{category}} text-center alert-dismissible fade show" role="alert">
+               {{message}}
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+             </div>
+           </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+              {% endfor %}
+              {%endif%}
+              {%endwith%}
+
+
+              {% for img in img  %}
+              <div class="container  mt-3 ">
+                  
+                  <div style="padding: 0px;" class="card jumbotron text-center mb-5 bg-light">
+                      <div style="color: black;" class="card-header d-flex bg-light">
+                        Posts
+                      </div>
+                      <div style="margin: 0px;padding: 8px;" class="card-body jumbotron d-flex text-center justify-content-start">
+                        <img class="img-fluid" id="user-id" src="{{url_for('static', filename='userdef.png')}}" alt="" srcset="">
+                        <ul style="list-style: none; padding: 0px;" class="d-flex">
+                        <li>
+                        
+                        <a style="color: black; font-size: 25px;" href="/user_profile/{{img.user}}">
+                            {{img.user}}
+
+                        
+                       </a>
+                       </li>
+                       </ul>
+                      </div>
+                      <div style="padding: 10px;" class="card-body jumbotron">
+                          <p style="font-size: 0.9rem;" class="card-text lead">{{img.caption}}</p>
+                         
+                      </div>
+                      <div class="card_footer d-flex justify-content-center">
+                        <p class="lead" style="font-size: 0.85rem;">{{img.time}}</p>
+                      </div>
+                      <div class="col-lg-12 col-md-8 col-sm-6 mt-3 ">
+                          <div class="input-group mb-3">
+                              <input type="text" class="form-control" placeholder="Add a Comment" aria-label="comment" aria-describedby="button-addon2">
+                              <button class="btn btn-secondary" type="button" id="button-addon2">Comment</button>
+                            </div>
+                      </div>
+                    </div>
+              </div>
+                  {% endfor %}
+           
+        
+       
+        
+
+        
+
+       
+    </div>
+    <footer id="ftr" class="py-5">
+        
+            
+            <div class="small text-center " id="ftr">Copyright © 2021 - Coding-Curiosity</div>
+       
+    </footer>
+</body>
+
+</html>
