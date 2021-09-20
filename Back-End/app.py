@@ -121,8 +121,7 @@ def login():
         #passw = db.session.execute("SELECT password FROM userinfo WHERE username=username{'username':username}").fetchone()  
         #print(passw[0])
         unam = Userinfo.query.filter_by(username=username ).first()
-        upas = Userinfo.query.filter_by(password=hashed_userpass.hexdigest()).first()
-        if unam is not None and upas is not None :
+        if unam is not None:
             if username==unam.username and hashed_userpass.hexdigest()==unam.password:
                 #set the session variable
                 session['user'] = username
